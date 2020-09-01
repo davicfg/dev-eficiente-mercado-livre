@@ -33,7 +33,7 @@ public class NovoUsuarioRequest {
 	}
 
 	public Usuario toModel() {
-		return new Usuario(email, senha);
+		return new Usuario(email, new SenhaLimpa(senha));
 	}
 	
 }
