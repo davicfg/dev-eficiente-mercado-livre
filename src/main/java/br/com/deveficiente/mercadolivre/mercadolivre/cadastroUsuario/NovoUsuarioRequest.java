@@ -15,6 +15,11 @@ public class NovoUsuarioRequest {
 	@Length(min = 6)
 	private String senha;
 
+	/**
+	 * 
+	 * @param email string formato de email
+	 * @param senha string em texto limpo
+	 */
 	public NovoUsuarioRequest(@NotBlank String email, @NotBlank @Length(min = 6) String senha) {
 		this.email = email;
 		this.senha = senha;
