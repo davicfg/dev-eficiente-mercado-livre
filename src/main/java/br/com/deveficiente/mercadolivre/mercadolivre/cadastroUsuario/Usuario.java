@@ -1,5 +1,7 @@
 package br.com.deveficiente.mercadolivre.mercadolivre.cadastroUsuario;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,6 +10,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.util.Assert;
@@ -20,14 +23,20 @@ public class Usuario {
 	private Long id;
 	private @Email @NotBlank String email;
 	private @NotBlank @Length(min = 6) String senha;
+	@NotNull
+	@PastOrPresent
+	private LocalDateTime instanteCriacao;
 
-	
+	@Deprecated
+	public Usuario() {
+	}
+
 	public Usuario(@Email @NotBlank String email, @NotBlank @Length(min = 6) @Valid @NotNull SenhaLimpa senhaLimpa) {
 		Assert.isTrue(StringUtils.hasLength(email), "email não pode ser em branco");
 		Assert.notNull(StringUtils.hasLength(senha), "senha não pode ser em branco");
 		this.email = email;
 		this.senha = senhaLimpa.hash();
-
+		this.instanteCriacao = LocalDateTime.now();
 	}
 
 	@Override
